@@ -1,0 +1,75 @@
+/* CardList.css */
+
+/* Contenedor principal de la lista de cards */
+.card-list {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;             /* Centra el contenedor en la página */
+  background-color: #f9f9f9;  /* Fondo suave para resaltar las cards */
+  border-radius: 8px;         /* Bordes redondeados para un look moderno */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
+  transition: background-color 0.3s ease;   /* Transición para cambios de color en hover */
+}
+
+/* Estilo para el título principal dentro del contenedor */
+.card-list h2 {
+  text-align: center;         /* Centra el título */
+  color: #333;                /* Color de texto oscuro para buena legibilidad */
+  margin-bottom: 20px;        /* Espacio inferior para separar del contenido */
+  font-size: 2rem;            /* Tamaño de fuente destacado */
+  border-bottom: 2px solid #e0e0e0; /* Línea decorativa debajo del título */
+  padding-bottom: 10px;       /* Espacio interno debajo del título */
+}
+
+/* Contenedor que organiza las cards en un layout flexible */
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;            /* Permite que las cards se distribuyan en varias filas */
+  justify-content: center;    /* Centra horizontalmente las cards */
+  gap: 16px;                  /* Espacio uniforme entre cada card */
+  padding: 10px;              /* Espacio interno para evitar que las cards toquen el borde */
+}
+
+/* Opcional: estilos adicionales para cada card dentro del contenedor */
+/* Aunque la mayoría de estilos se definen en Card.css, aquí se pueden ajustar detalles de layout */
+.cards-container .card {
+  transition: transform 0.3s ease; /* Efecto de transición para interacciones */
+}
+
+/* Cambio de fondo en el contenedor principal al hacer hover, para dar feedback visual */
+.card-list:hover {
+  background-color: #fff;
+}
+
+/* Media query para pantallas pequeñas: organiza las cards en columna */
+@media (max-width: 768px) {
+  .cards-container {
+    flex-direction: column;
+    align-items: center; /* Centra cada card en la columna */
+  }
+}
+
+/* Media query para pantallas muy grandes: aumenta el ancho máximo del contenedor */
+@media (min-width: 1200px) {
+  .card-list {
+    max-width: 1400px;
+  }
+}
+
+/* Estilos opcionales para un botón de acción dentro del contenedor, si deseas agregarlo */
+.card-list .action-button {
+  display: block;
+  margin: 20px auto;         /* Centra el botón horizontalmente */
+  padding: 10px 20px;
+  background-color: #007bff;   /* Color de fondo azul */
+  color: #fff;               /* Texto en blanco */
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.card-list .action-button:hover {
+  background-color: #0056b3;  /* Oscurece el botón al pasar el mouse */
+}
