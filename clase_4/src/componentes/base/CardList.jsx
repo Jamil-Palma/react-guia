@@ -6,17 +6,36 @@
 import React, { useState, useEffect } from 'react';
 import Card from './Card';
 import './CardList.css';
+import axios from 'axios';
 
 const CardList = () => {
   // Estados para almacenar los datos, el estado de carga y errores
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const [errorStatus, setErrorStatus] = useState(null);
+  const [pokemonElegido, setPokemonElegido] = useState([]);
+  const [mostrarLista, setMostrarLista] = useState(true);
+  async function getDataAxios(url) {
+    try {
+      console.log("entra get data axios")
+      const response = await axios.get(url);
+      console.log("-- ", response.data);
+      setItems(response.data)
+      setLoading(false);
+    } catch (error) {
+      console.log("error es : ", error);
+      setErrorStatus(true)
+      setError(error.message)
+      setLoading(false);
+    }
+  }
   useEffect(() => {
+    console.log("use effect")
     // Realiza la petición a la API para obtener 10 posts
-    fetch('https://pokeapi.co/api/v2/pokemon/ditto')
-      .then(response => {
+    function llamadaAPIFetch() {
+      fetch('https://pokeapi.co/api/v2/pokemon/')
+      .then(response =>   {
         if (!response.ok) {
           throw new Error('Error al obtener los datos');
         }
@@ -30,37 +49,64 @@ const CardList = () => {
         setError(err.message);
         setLoading(false);
       });
+    }
+    getDataAxios("https://pokeapi.co/api/v2/pokemon/")
   }, []);
+  if (errorStatus) return <p>Error: {error}</p>;
 
   // Muestra un mensaje mientras se cargan los datos
   if (loading) return <p>Cargando datos...</p>;
   // Muestra un mensaje de error si ocurre alguno
-  if (error) return <p>Error: {error}</p>;
 
+  console.log("items es : ", items)
+  console.log("items es : ", items.results)
+  function handleClick() {
+    console.log("click")
+    setLoading(true);
+    getDataAxios(items.next)
+  }
+  function guardarPokemon(nombre, url) {
+    console.log("guardar pokemon")
+    console.log("pokemon elegido es : ", pokemonElegido)
+    setPokemonElegido([...pokemonElegido,{nombre, url}])
+  }
+  console.log("pokemon elegido es : ", pokemonElegido)
   return (
     <div className="card-list">
       <h2>Lista de Publicaciones</h2>
+      <button onClick={handleClick}>Siguiente</button>
+      <button onClick={() => setMostrarLista(!mostrarLista)}>
+        {mostrarLista ? 'Ocultar' : 'Mostrar'} lista
+      </button>
       <div className="cards-container">
-        {/* esto funciona para vectores, respuestas de la api https://api.thecatapi.com/v1/images/search?limit=10
-        {items.map(item => (
-          // Se utiliza el componente Card para cada elemento de la lista
-          <Card
-            key={items.id}
-            title={items.name}
-            description={item.body}
-            imageUrl={item.url} // Imagen de ejemplo
+        {mostrarLista && items.results.map(item => (<Card
+            key={item.id}
+            title={item.name}
+            description={item.name}
+            url={item.url} // Imagen de ejemplo
+            guardar={guardarPokemon}
           />
         ))}
-        
-        */}
 
-          <Card
+
+          {/*<Card
             key={items.id}
             title={items.name}
             description={items.body}
             imageUrl={items.sprites.front_default} // Imagen de ejemplo
-          />
+          />*/}
       </div>
+      <h2>Seleccionados:</h2>
+      <div className="cards-container">
+        {pokemonElegido.map(item => (<Card
+            key={item.id}
+            title={item.nombre}
+            url={item.url} // Imagen de ejemplo
+            guardar={guardarPokemon}
+            opcionGuardar={false}
+          />
+        ))}
+        </div>
     </div>
   );
 };
