@@ -3,18 +3,24 @@
 // y renderiza una lista de "cards" utilizando el componente Card.
 // Se maneja el estado de carga y errores para una experiencia de usuario completa.
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Card from './Card';
 import './CardList.css';
 import axios from 'axios';
+import MiContexto from '../hook/MiContexto';
 
+//const [pokemonElegido, setPokemonElegido] = useState([]);
 const CardList = () => {
   // Estados para almacenar los datos, el estado de carga y errores
+  console.log("entra card list")
+  console.log("------")
+  const {pokemonElegidoContexto, setPokemonElegidoContexto} = useContext(MiContexto)
+  console.log("--- contexto datos: ", pokemonElegidoContexto)
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [errorStatus, setErrorStatus] = useState(null);
-  const [pokemonElegido, setPokemonElegido] = useState([]);
+
   const [mostrarLista, setMostrarLista] = useState(true);
   async function getDataAxios(url) {
     try {
@@ -51,12 +57,13 @@ const CardList = () => {
       });
     }
     getDataAxios("https://pokeapi.co/api/v2/pokemon/")
+    return (
+      console.log("use effect terminado")
+    )
   }, []);
   if (errorStatus) return <p>Error: {error}</p>;
 
-  // Muestra un mensaje mientras se cargan los datos
   if (loading) return <p>Cargando datos...</p>;
-  // Muestra un mensaje de error si ocurre alguno
 
   console.log("items es : ", items)
   console.log("items es : ", items.results)
@@ -67,10 +74,11 @@ const CardList = () => {
   }
   function guardarPokemon(nombre, url) {
     console.log("guardar pokemon")
-    console.log("pokemon elegido es : ", pokemonElegido)
-    setPokemonElegido([...pokemonElegido,{nombre, url}])
+    console.log("pokemon elegido es : ", pokemonElegidoContexto)
+    setPokemonElegidoContexto([...pokemonElegidoContexto, {nombre, url}])
+    localStorage.setItem("pokemons",[...pokemonElegidoContexto, {nombre, url}])
   }
-  console.log("pokemon elegido es : ", pokemonElegido)
+  console.log("pokemon elegido es 2: ", pokemonElegidoContexto)
   return (
     <div className="card-list">
       <h2>Lista de Publicaciones</h2>
@@ -98,12 +106,13 @@ const CardList = () => {
       </div>
       <h2>Seleccionados:</h2>
       <div className="cards-container">
-        {pokemonElegido.map(item => (<Card
+        {pokemonElegidoContexto.map(item => (<Card
             key={item.id}
             title={item.nombre}
             url={item.url} // Imagen de ejemplo
             guardar={guardarPokemon}
             opcionGuardar={false}
+            datos={item}
           />
         ))}
         </div>
