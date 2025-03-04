@@ -20,7 +20,9 @@ const CardList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [errorStatus, setErrorStatus] = useState(null);
-
+  console.log("se cargaron datos 1")
+  //setItems([])
+  console.log("se cargaron datos 2")
   const [mostrarLista, setMostrarLista] = useState(true);
   async function getDataAxios(url) {
     try {
