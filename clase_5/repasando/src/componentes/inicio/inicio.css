@@ -1,0 +1,28 @@
+body {
+    margin: 0;
+    padding: 0;
+  }
+  h2 {
+    font-size: 150%;
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+  }
+  h3 {
+    font-size: 80%;
+    background-color: rgb(109, 192, 247);
+    display: flex;
+    justify-content: center;
+    border-radius: 5px;
+    padding: 10% 0;
+    margin: 0px auto;
+    font-family: sans-serif;
+    margin: 0 5%;
+  }
+.claseBoton {
+    background-color: rgb(109, 247, 194);
+    display: flex;
+    justify-content: center;
+    border-radius: 5px;
+    margin: 0px auto;
+}
