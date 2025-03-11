@@ -7,8 +7,9 @@ import PropTypes, { func } from 'prop-types';
 import './Card.css';
 import axios from 'axios';
 
-const Card = ({ title, description, url, guardar, opcionGuardar=true}) => {
-  //console.log("title es : ", title)
+const Card = ({ title, description, url, guardar, 
+  opcionGuardar=true, datos}) => {
+  console.log("title es : ", datos)
   //console.log("description es : ", description)
   //console.log("imageUrl es : ", url)
   const [imagen, setImagen] = React.useState(null)
@@ -62,7 +63,8 @@ Card.propTypes = {
   description: PropTypes.string,
   url: PropTypes.string,
   guardar: PropTypes.func,
-  opcionGuardar: PropTypes.bool
+  opcionGuardar: PropTypes.bool,
+  datos: PropTypes.any
 };
 
 export default Card;
