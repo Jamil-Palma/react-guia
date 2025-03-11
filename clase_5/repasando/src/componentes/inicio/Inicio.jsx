@@ -30,6 +30,13 @@ const Inicio = () => {
         <div>
           <h3>
           <Button className="claseBoton"
+            onClick={()=>navigate('/graficos')}
+          >Graficos</Button>
+            </h3>
+        </div>
+        <div>
+          <h3>
+          <Button className="claseBoton"
             onClick={()=>navigate('/registro')}
           >Registro</Button>
             </h3>
@@ -44,8 +51,8 @@ const Inicio = () => {
         <div>
           <h3>
           <Button className="claseBoton"
-            onClick={()=>navigate('/')}
-          >vacio</Button>
+            onClick={()=>navigate('/mapas')}
+          >Mapas</Button>
             </h3>
         </div>
       </Slider>

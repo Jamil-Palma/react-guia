@@ -6,6 +6,8 @@ import { AuthProvider } from "./context/AuthContext";
 import Login from "./componentes/Login";
 import ProtectedRoute from "./componentes/ProtectedRoute";
 import PdfProcesador from "./componentes/PdfProcesador";
+import MapasManejo from "./componentes/MapasManejo";
+import GraficosPrincipal from "./componentes/graficos/GraficosPrincipal";
 
 function App() {
     console.log("app")
@@ -30,6 +32,16 @@ return (
                         <Route path='/pdf' element={
                             <ProtectedRoute>
                                 <PdfProcesador/>
+                            </ProtectedRoute>
+                            }/>
+                        <Route path='/mapas' element={
+                            <ProtectedRoute>
+                                <MapasManejo/>
+                            </ProtectedRoute>
+                            }/>
+                        <Route path='/graficos' element={
+                            <ProtectedRoute>
+                                <GraficosPrincipal/>
                             </ProtectedRoute>
                             }/>
                     </Routes>
